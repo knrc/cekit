@@ -33,8 +33,8 @@ class OCIBuilder(Builder):
         # Custom tags for the container image
         LOGGER.debug("Building image with tags: '{}'".format("', '".join(tags)))
 
-        for tag in tags:
-            cmd.extend(["-t", tag])
+        if tagging:
+            cmd.extend(self.get_tag_params(tags))
 
         if args:
             for arg in args:
@@ -44,6 +44,7 @@ class OCIBuilder(Builder):
             for arg in generic_args:
                 cmd.extend([arg])
 
+        LOGGER.debug("Building image with command: '{}'".format("' '".join(cmd)))
         LOGGER.info("Building container image...")
 
         cmd.append(os.path.join(self.target, "image"))
@@ -53,3 +54,9 @@ class OCIBuilder(Builder):
         LOGGER.info(
             f"Image built and available under following tags: {', '.join(tags)}"
         )
+
+    def get_tag_params(self, tags: List[str]):
+        params: List[str] = []
+        for tag in tags:
+            cmd.extend(["-t", tag])
+        return params

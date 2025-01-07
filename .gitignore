@@ -12,3 +12,4 @@ Pipfile.lock
 venv
 .venv
 cekit.iml
+build/

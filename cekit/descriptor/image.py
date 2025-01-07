@@ -37,6 +37,7 @@ _image_schema = yaml.safe_load(
 map:
   name: {type: str, required: True}
   version: {type: text, required: True}
+  latest: {type: bool}
   schema_version: {type: int}
   release: {type: text}
   from: {type: str}

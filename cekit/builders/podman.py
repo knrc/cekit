@@ -22,6 +22,16 @@ class PodmanBuilder(OCIBuilder):
 
         return deps
 
+    def get_tag_params(self, tags: List[str]):
+        params: List[str] = []
+        param: str = "-t"
+        if self.params.platform and len(self.params.platform.split(",")) > 1:
+            param="--manifest"
+
+        for tag in tags:
+            params.extend([param, tag])
+        return params
+
     def run(self):
         """Build container image using podman."""
 

@@ -294,10 +294,12 @@ class Generator(object):
                 self._module_registry.add_module(module)
 
     def get_tags(self) -> List[str]:
-        return [
+        tags: List[str] = [
             f"{self.image['name']}:{self.image['version']}",
-            f"{self.image['name']}:latest",
         ]
+        if self.image.latest:
+            tags.extend([f"{self.image['name']}:latest"])
+        return tags
 
     def copy_modules(self) -> None:
         """Prepare module to be used for Dockerfile generation.
